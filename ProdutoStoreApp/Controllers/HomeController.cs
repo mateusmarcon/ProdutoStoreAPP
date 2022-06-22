@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using ProdutoStoreApp.Models;
 using System;
@@ -12,14 +13,21 @@ namespace ProdutoStoreApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private IConfiguration configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        /*public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+        }*/
+        public HomeController(IConfiguration iConfiguration)
+        {
+            configuration = iConfiguration;
         }
 
         public IActionResult Index()
         {
+            var a = configuration.GetSection("Logging");
             return View();
         }
 

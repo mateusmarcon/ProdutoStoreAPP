@@ -38,3 +38,4 @@ C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\ref
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\ProdutoStoreApp.pdb
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\ProdutoStoreApp.genruntimeconfig.cache
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\ProdutoStoreApp.csproj.CopyComplete
+C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\bin\Debug\net5.0\libman.json
