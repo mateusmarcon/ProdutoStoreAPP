@@ -66,13 +66,18 @@ namespace ProdutoStoreApp.Models
             }
         }
 
-        public List<Produto> GetAll(string urlApi)
+        public List<Produto> GetAll(string urlApi,string id="")
         {
             try
             {
+                var url = urlApi + "/produto";
+
+                if (!string.IsNullOrEmpty(id))
+                    url += "?$top=1&$filter=Id eq "+ id;
+
                 var client = new HttpClient();
                 var request = new HttpRequestMessage();
-                request.RequestUri = new Uri(urlApi + "/produto");
+                request.RequestUri = new Uri(url);
                 request.Method = HttpMethod.Get;
 
                 request.Headers.Add("Accept", "*/*");
@@ -115,7 +120,5 @@ namespace ProdutoStoreApp.Models
                 throw;
             }
         }
-
-
     }
 }

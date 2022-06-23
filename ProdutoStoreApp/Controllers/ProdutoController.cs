@@ -72,5 +72,20 @@ namespace ProdutoStoreApp.Controllers
             }
 
         }
+
+        [HttpGet]
+        public IActionResult Get(int Id)
+        {
+            var produto = new Produto();
+            var lProduto = produto.GetAll(urlApi, Id.ToString());
+            if (lProduto.Count > 0)
+            {
+                return this.Ok( JsonConvert.SerializeObject(lProduto.First(), Formatting.Indented));
+            }
+            
+            return BadRequest("Não foi possível encontrar o registro");
+            
+        }
+
     }
 }

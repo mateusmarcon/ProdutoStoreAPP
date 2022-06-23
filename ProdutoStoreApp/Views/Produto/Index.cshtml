@@ -86,9 +86,25 @@
             })
        
     }
-
+    var retornoAt = "";
     function Atualizar(id) {
-        alert("atualizar "+ id)
+        alert("atualizar " + id)
+
+        $.ajax({
+            type: "GET",
+            data: { Id: id },
+            url: "/produto/get",
+            success: function (msg) {
+                console.log(msg);
+                retornoAt = msg;
+                AtualizaForm(msg)
+            },
+            error: function (msg) {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        });
+
     }
     function Excluir(id) {
         let bodyContent = JSON.stringify({
@@ -113,9 +129,14 @@
             }
         });
 
-
-
     }
-  
+
+    function AtualizaForm(data) {
+        const obj = JSON.parse(data);
+
+        document.getElementById("InputId").value = obj["Id"];
+        document.getElementById("InputNome").value = obj["Nome"];
+        document.getElementById("InputDescricao").value = obj["Descricao"];
+    }
 
 </script>
