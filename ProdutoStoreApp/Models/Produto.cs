@@ -56,7 +56,7 @@ namespace ProdutoStoreApp.Models
         public int CategoriaID { get; set; }
         public CategoriaProduto CategoriaProduto { get; set; }
 
-        public Task<string> Set(Produto produto, string url)
+        public Task<string> Set(Produto produto, string url, ref System.Net.HttpStatusCode status)
         {
             try
             {
@@ -76,8 +76,9 @@ namespace ProdutoStoreApp.Models
                 request.Content = content;
 
                 var response = client.SendAsync(request);
-                return response.Result.Content.ReadAsStringAsync();
-
+                var retorno =  response.Result.Content.ReadAsStringAsync();
+                status = response.Result.StatusCode;
+                return retorno;
             }
             catch
             {
@@ -112,15 +113,16 @@ namespace ProdutoStoreApp.Models
             }
             catch (Exception ex)
             {
-
+                throw;
             }
             return new List<Produto>();
         }
 
-        public Task<string> Delete(Produto produto, string url)
+        public Task<string> Delete(Produto produto, string url, ref System.Net.HttpStatusCode status)
         {
             try
             {
+
                 var prodJson = JsonConvert.SerializeObject(produto, Formatting.Indented);
 
                 var request = new HttpRequestMessage(HttpMethod.Delete, url + "/produto");
@@ -131,7 +133,9 @@ namespace ProdutoStoreApp.Models
                 request.Content = content;
 
                 var response = client.SendAsync(request);
-                return response.Result.Content.ReadAsStringAsync();
+                var retorno = response.Result.Content.ReadAsStringAsync();
+                status = response.Result.StatusCode;
+                return retorno;
 
             }
             catch

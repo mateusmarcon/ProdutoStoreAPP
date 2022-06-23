@@ -54,13 +54,19 @@ namespace ProdutoStoreApp.Controllers
         {
             try
             {
-                var retorno = produto.Set(produto, urlApi);
-                JsonConvert.DeserializeObject<Produto>(retorno.Result);
-                return this.Ok(JsonConvert.DeserializeObject<Produto>(retorno.Result));
+                var status = new System.Net.HttpStatusCode();
+                var retorno = produto.Set(produto, urlApi, ref status);
+                if (status == System.Net.HttpStatusCode.OK)
+                {
+                    JsonConvert.DeserializeObject<Produto>(retorno.Result);
+                    return this.Ok(JsonConvert.DeserializeObject<Produto>(retorno.Result));
+
+                }
+                return BadRequest("Não foi possível gravar os dados. Retorno: " + retorno.Result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Não foi possível gravar os dados");
+                return BadRequest("Não foi possível gravar os dados. Erro: "+ ex.Message);
             }
 
         }
@@ -70,13 +76,18 @@ namespace ProdutoStoreApp.Controllers
         {
             try
             {
-                var retorno = produto.Delete(produto, urlApi);
-                JsonConvert.DeserializeObject<Object>(retorno.Result);
-                return this.Ok(JsonConvert.DeserializeObject<Produto>(retorno.Result));
+                var status = new System.Net.HttpStatusCode();
+                var retorno = produto.Delete(produto, urlApi, ref status);
+                if (status == System.Net.HttpStatusCode.OK)
+                {
+                    JsonConvert.DeserializeObject<Object>(retorno.Result);
+                    return this.Ok(JsonConvert.DeserializeObject<Produto>(retorno.Result));
+                }
+                return BadRequest("Registro não foi deletado, retorno: " + retorno.Result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Não foi possível gravar os dados");
+                return BadRequest("Não foi deletar os dados. Erro: "+ ex.Message);
             }
 
         }
