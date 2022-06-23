@@ -39,4 +39,4 @@ C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Pro
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\bin\Debug\net5.0\libman.json
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Produto\Index.cshtml.g.cs
-C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Produto\Privacy.cshtml.g.cs
+C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Produto\_List.cshtml.g.cs

@@ -1,0 +1,30 @@
+﻿<table id="ItemsTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Descricao</th>
+            <th scope="col">Categoria do Produto</th>
+            <th scope="col">Ativo</th>
+            <th scope="col">Perecível</th>
+            <th scope="col">Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in (List<Produto>)TempData["Produtos"])
+        {
+            var ativo = produto.Ativo ? "Ativo" : "Inativo";
+            var perecivel = produto.Perecivel ? "Sim" : "Não";
+            var idTr = "idTr" + produto.Id;
+            <tr id="@idTr">
+                <td>@produto.Id</td>
+                <td>@produto.Nome</td>
+                <td>@produto.Descricao</td>
+                <td>@produto.CategoriaProduto.Nome</td>
+                <td>@ativo</td>
+                <td>@perecivel</td>
+                <td><button type="button" onclick="Atualizar(@produto.Id)" class="btn btn-success">Atualizar</button><button type="button" onclick="Excluir(@produto.Id)" class="btn btn-danger">Deletar</button></td>
+            </tr>
+        }
+    </tbody>
+</table>

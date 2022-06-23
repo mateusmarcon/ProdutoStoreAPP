@@ -35,6 +35,14 @@ namespace ProdutoStoreApp.Controllers
             return View();
         }
 
+        public ActionResult _List()
+        {
+            var produto = new Produto();
+            TempData["Produtos"] = produto.GetAll(urlApi);
+
+            return PartialView("_List");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
