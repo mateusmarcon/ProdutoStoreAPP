@@ -17,6 +17,25 @@ namespace ProdutoStoreApp.Models
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public bool Ativo { get; set; }
+        public string AtivoString
+        {
+            get
+            {
+                return Ativo.ToString();
+            }
+            set
+            {
+                if (value.ToLower() == "on")
+                {
+                    Ativo = true;
+                }
+                else
+                {
+                    Ativo = false;
+                }
+            }
+        }
+
         public bool Perecivel { get; set; }
         public string PerecivelString {
             get {

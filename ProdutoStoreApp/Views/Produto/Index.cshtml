@@ -16,7 +16,7 @@
             <input type="text" name="descricao" class="form-control" id="InputDescricao" required>
         </div>
         <div class="mb-3">
-            <select class="form-select" aria-label="Default select example" name="categoriaID">
+            <select class="form-select" aria-label="Default select example" id="categoriaSelect" name="categoriaID">
                 @foreach (var categoria in (List<CategoriaProduto>)TempData["Categorias"])
                 {
                     <option value="@categoria.Id"> @categoria.Nome</option>
@@ -27,6 +27,12 @@
             <input class="form-check-input" name="PerecivelString" type="checkbox" id="checkPerecivel">
             <label class="form-check-label" for="checkPerecivel">
                 Perecível?
+            </label>
+        </div>
+        <div class="mb-3">
+            <input class="form-check-input" name="AtivoString" type="checkbox" id="checkAtivo" checked>
+            <label class="form-check-label" for="checkAtivo">
+                Ativo
             </label>
         </div>
         <button type="button" onclick="cadastrar()" class="btn btn-primary">Cadastrar</button>
@@ -65,78 +71,119 @@
 </div>
 
 <script>
-    function cadastrar() {
-   
-            var data = $("#produtoForm").serialize();
-            console.log(data);
-            alert(data);
+        function cadastrar() {
+            if (ValidateForm()) {
+
+
+                var data = $("#produtoForm").serialize();
+                console.log(data);
+                alert(data);
+                $.ajax({
+                    type: 'POST',
+                    url: '/produto/set',
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                    data: data,
+                    success: function (result) {
+                        alert('Successfully received Data ');
+                        console.log(result);
+                        LimpaForm();
+                    },
+                    error: function () {
+                        alert('Failed to receive the Data');
+                        console.log('Failed ');
+                    }
+                })
+            }
+        }
+        var retornoAt = "";
+        function Atualizar(id) {
+            alert("atualizar " + id)
+
             $.ajax({
+                type: "GET",
+                data: { Id: id },
+                url: "/produto/get",
+                success: function (msg) {
+                    console.log(msg);
+                    retornoAt = msg;
+                    AtualizaForm(msg)
+                },
+                error: function (msg) {
+                    alert('Failed to receive the Data');
+                    console.log('Failed ');
+                }
+            });
+
+        }
+        function Excluir(id) {
+            let bodyContent = JSON.stringify({
+                id
+            });
+            console.log(bodyContent);
+
+            $.ajax({
+                url: '/produto/delete',
+                data: bodyContent,
                 type: 'POST',
-                url: '/produto/set',
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
-                data: data,
+                contentType: 'application/json; charset=utf-8',
+
                 success: function (result) {
                     alert('Successfully received Data ');
                     console.log(result);
+                    document.getElementById("idTr" + id).remove()
                 },
                 error: function () {
                     alert('Failed to receive the Data');
                     console.log('Failed ');
                 }
-            })
-       
-    }
-    var retornoAt = "";
-    function Atualizar(id) {
-        alert("atualizar " + id)
+            });
 
-        $.ajax({
-            type: "GET",
-            data: { Id: id },
-            url: "/produto/get",
-            success: function (msg) {
-                console.log(msg);
-                retornoAt = msg;
-                AtualizaForm(msg)
-            },
-            error: function (msg) {
-                alert('Failed to receive the Data');
-                console.log('Failed ');
+        }
+
+        function AtualizaForm(data) {
+            const obj = JSON.parse(data);
+
+            document.getElementById("InputId").value = obj["Id"];
+            document.getElementById("InputNome").value = obj["Nome"];
+            document.getElementById("InputDescricao").value = obj["Descricao"];
+            const $select = document.querySelector('#categoriaSelect');
+            $select.value = obj["CategoriaID"];
+
+            if (obj["Perecivel"] === true) {
+                document.getElementById("checkPerecivel").checked = true;
+            } else {
+                document.getElementById("checkPerecivel").checked = false;
             }
-        });
-
-    }
-    function Excluir(id) {
-        let bodyContent = JSON.stringify({
-           id
-        });
-        console.log(bodyContent);
-
-        $.ajax({
-            url: '/produto/delete',
-            data: bodyContent,
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-        
-            success: function (result) {
-                alert('Successfully received Data ');
-                console.log(result);
-                document.getElementById("idTr"+id).remove()
-            },
-            error: function () {
-                alert('Failed to receive the Data');
-                console.log('Failed ');
+            if (obj["Ativo"] === true) {
+                document.getElementById("checkAtivo").checked = true;
+            } else {
+                document.getElementById("checkAtivo").checked = false;
             }
-        });
+        }
 
-    }
+        function LimpaForm() {
+            document.getElementById("InputId").value = 0;
+            document.getElementById("InputNome").value = '';
+            document.getElementById("InputDescricao").value = '';
+            const $select = document.querySelector('#categoriaSelect');
+            $select.selectedIndex = 0;
+            document.getElementById("checkPerecivel").checked = false;
+            document.getElementById("checkAtivo").checked = true;
+        }
 
-    function AtualizaForm(data) {
-        const obj = JSON.parse(data);
+        function ValidateForm() {
+            var nome = document.getElementById("InputNome").value;
+            var descricao = document.getElementById("InputDescricao").value;
 
-        document.getElementById("InputId").value = obj["Id"];
-        document.getElementById("InputNome").value = obj["Nome"];
-        document.getElementById("InputDescricao").value = obj["Descricao"];
-    }
+            if (nome == "") {
+                alert("Nome deve ser preenchido");
+                return false;
+            }
+            if (descricao == "") {
+                alert("Descrição deve ser preenchida");
+                return false;
+            }
 
+            return true;
+        }
 </script>
