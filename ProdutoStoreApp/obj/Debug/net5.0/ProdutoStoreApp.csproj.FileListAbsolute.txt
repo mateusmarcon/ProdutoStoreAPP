@@ -23,8 +23,6 @@ C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\sco
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\ProdutoStoreApp.TagHelpers.input.cache
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\ProdutoStoreApp.TagHelpers.output.cache
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\ProdutoStoreApp.RazorCoreGenerate.cache
-C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -39,3 +37,6 @@ C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Pro
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\ProdutoStoreApp.genruntimeconfig.cache
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\ProdutoStoreApp.csproj.CopyComplete
 C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\bin\Debug\net5.0\libman.json
+C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Produto\Index.cshtml.g.cs
+C:\Users\mateu\source\repos\ProdutoStoreAPP\ProdutoStoreApp\obj\Debug\net5.0\Razor\Views\Produto\Privacy.cshtml.g.cs

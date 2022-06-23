@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+
+    <form id="produtoForm" novalidate class="needs-validation">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="text" name="id" class="form-control" id="InputId" hidden value="">
+        <div class="mb-3">
+            <label for="InputNome" class="form-label">Nome</label>
+            <input type="text" name="nome" class="form-control" id="InputNome" required>
+        </div>
+        <div class="mb-3">
+            <label for="InputDescricao" class="form-label">Descrição</label>
+            <input type="text" name="descricao" class="form-control" id="InputDescricao" required>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" aria-label="Default select example" name="categoriaID">
+                @foreach (var categoria in (List<CategoriaProduto>)TempData["Categorias"])
+                {
+                    <option value="@categoria.Id"> @categoria.Nome</option>
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <input class="form-check-input" name="PerecivelString" type="checkbox" id="checkPerecivel">
+            <label class="form-check-label" for="checkPerecivel">
+                Perecível?
+            </label>
+        </div>
+        <button type="button" onclick="cadastrar()" class="btn btn-primary">Cadastrar</button>
+    </form>
+
+    <table id="ItemsTable"class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Descricao</th>
+                <th scope="col">Categoria do Produto</th>
+                <th scope="col">Ativo</th>
+                <th scope="col">Perecível</th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var produto in (List<Produto>)TempData["Produtos"])
+            {
+                var ativo = produto.Ativo ? "Ativo" : "Inativo";
+                var perecivel = produto.Perecivel ? "Sim" : "Não";
+                var idTr = "idTr" + produto.Id;
+                 <tr id="@idTr">
+                    <td>@produto.Id</td>
+                    <td>@produto.Nome</td>
+                    <td>@produto.Descricao</td>
+                    <td>@produto.CategoriaProduto.Nome</td>
+                    <td>@ativo</td>
+                    <td>@perecivel</td>
+                    <td><button type="button" onclick="Atualizar(@produto.Id)" class="btn btn-success">Atualizar</button><button type="button" onclick="Excluir(@produto.Id)" class="btn btn-danger">Deletar</button></td>
+                 </tr>
+             }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function cadastrar() {
+   
+            var data = $("#produtoForm").serialize();
+            console.log(data);
+            alert(data);
+            $.ajax({
+                type: 'POST',
+                url: '/produto/set',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                data: data,
+                success: function (result) {
+                    alert('Successfully received Data ');
+                    console.log(result);
+                },
+                error: function () {
+                    alert('Failed to receive the Data');
+                    console.log('Failed ');
+                }
+            })
+       
+    }
+
+    function Atualizar(id) {
+        alert("atualizar "+ id)
+    }
+    function Excluir(id) {
+        let bodyContent = JSON.stringify({
+           id
+        });
+        console.log(bodyContent);
+
+        $.ajax({
+            url: '/produto/delete',
+            data: bodyContent,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+        
+            success: function (result) {
+                alert('Successfully received Data ');
+                console.log(result);
+                document.getElementById("idTr"+id).remove()
+            },
+            error: function () {
+                alert('Failed to receive the Data');
+                console.log('Failed ');
+            }
+        });
+
+
+
+    }
+  
+
+</script>
