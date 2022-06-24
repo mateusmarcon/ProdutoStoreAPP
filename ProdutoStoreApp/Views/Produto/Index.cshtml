@@ -1,7 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-<div>
+﻿<div>
+    @if (!string.IsNullOrEmpty(TempData["Erros"].ToString()))
+    {
+        <div class="alert alert-danger" role="alert">
+            Dados não carregado! Verifique sua conexão com a API.
+        </div>
+    }
     <div class="">
         <form id="produtoForm" novalidate class="needs-validation">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -47,7 +50,7 @@
         @Html.Partial("_List")
     </div>
 
-    
+
 </div>
 
 <script>

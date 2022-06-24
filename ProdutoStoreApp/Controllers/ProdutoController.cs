@@ -13,7 +13,6 @@ namespace ProdutoStoreApp.Controllers
 {
     public class ProdutoController : Controller
     {
-        private readonly ILogger<ProdutoController> _logger;
         private IConfiguration configuration;
         private string urlApi;
 
@@ -28,8 +27,18 @@ namespace ProdutoStoreApp.Controllers
         {
             var catProduto = new CategoriaProduto();
             var produto = new Produto();
-            TempData["Categorias"] = catProduto.GetAll(urlApi);
-            TempData["Produtos"] = produto.GetAll(urlApi);
+            try
+            {
+                TempData["Categorias"] = catProduto.GetAll(urlApi);
+                TempData["Produtos"] = produto.GetAll(urlApi);
+                TempData["Erros"] = string.Empty;
+            }catch(Exception ex)
+            {
+                TempData["Erros"] = ex.Message;
+                TempData["Categorias"] = new List<CategoriaProduto>();
+                TempData["Produtos"] =   new List<Produto>();
+
+            }
             TempData["UrlApi"] = urlApi;
 
             return View();
@@ -50,7 +59,7 @@ namespace ProdutoStoreApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Set(Produto produto)
+        public IActionResult Set(Produto produto)
         {
             try
             {

@@ -34,9 +34,9 @@ namespace ProdutoStoreApp.Models
 
                 }
             }
-            catch(Exception ex)
+            catch
             {
-
+                throw;
             }
             return new List<CategoriaProduto>();
         }
